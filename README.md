@@ -2,7 +2,7 @@
 ## Workforce Financial Analysis Across Departments and Regions
 ![Banner](./images/banner.jpg)
 
-##### This project performs a workforce financial analysis using a mock SQL database that simulates employee salary and departmental data. The goal is to derive actionable insights from a financial analyst's perspective, identifying salary trends, cost optimizations, and organizational imbalances.
+#### This project performs a workforce financial analysis using a mock SQL database that simulates employee salary and departmental data. The goal is to derive actionable insights from a financial analyst's perspective, identifying salary trends, cost optimizations, and organizational imbalances.
 
 ### Project Objective
 Perform an in-depth financial analysis of employee salary distributions across departments and regions to uncover:
@@ -15,6 +15,8 @@ Perform an in-depth financial analysis of employee salary distributions across d
 - `employees`: Employee records including salary, department, job title, region, and start date.
 - `company_departments`: Department metadata and divisions.
 - `company_regions`: Region and country data.
+
+<img src="./images/ERD.png" alt="Employee Distribution by Department" width="700"/>
 
 ### Methodology & Queries Used
 All analysis was done using SQL (PostgreSQL syntax). Example queries include:

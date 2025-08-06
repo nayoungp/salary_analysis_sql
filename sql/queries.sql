@@ -120,7 +120,7 @@ SELECT
 FROM employees e
 JOIN company_departments d ON e.department_id = d.id;
 
---12. 급여 구간별 직원 분포 분석
+--12. Salary bracket distribution
 WITH salary_brackets AS (
     SELECT 
     
