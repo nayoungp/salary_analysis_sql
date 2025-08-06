@@ -121,6 +121,7 @@ FROM employees e
 JOIN company_departments d ON e.department_id = d.id;
 
 --12. Salary bracket distribution
+-- CTE 1: Categorize employees into salary brackets and count by bracket
 WITH salary_brackets AS (
     SELECT 
         CASE 
@@ -133,6 +134,7 @@ WITH salary_brackets AS (
     FROM employees
     GROUP BY salary_brackets
 ),
+-- CTE 2: Get total employee count for percentage calculation
 total_employees AS (
     SELECT COUNT(*) as total FROM employees
 )
@@ -141,7 +143,7 @@ SELECT
     sb.employee_count,
     ROUND(sb.employee_count * 100.0 / te.total, 2) as percentage
 FROM salary_brackets sb
-CROSS JOIN total_employees te
+CROSS JOIN total_employees te              -- CROSS JOIN to get total count for each row
 ORDER BY sb.employee_count DESC;
 
 
@@ -173,6 +175,7 @@ SELECT
 FROM employees e
 JOIN company_departments d ON e.department_id = d.id
 JOIN company_regions r ON e.region_id = r.id
+-- Subquery : PERCENTILE_CONT(0.9) finds the salary threshold for top 10%
 WHERE e.salary >= (
     SELECT PERCENTILE_CONT(0.9) WITHIN GROUP (ORDER BY e2.salary)
     FROM employees e2
@@ -180,6 +183,7 @@ WHERE e.salary >= (
 );
 
 --15. employees who have higher salaries than avg_salary per department
+-- CTE: Calculate average salary for each department
 WITH dept_avg_salary AS (
     SELECT department_id, AVG(salary) AS avg_salary
     FROM employees
@@ -188,5 +192,5 @@ WITH dept_avg_salary AS (
 SELECT e.last_name, e.salary, d.avg_salary
 FROM employees e
 JOIN dept_avg_salary d ON e.department_id = d.department_id
-WHERE e.salary > d.avg_salary;
+WHERE e.salary > d.avg_salary;      -- Filter: only above average earners
 
