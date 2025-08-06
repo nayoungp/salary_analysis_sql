@@ -1,4 +1,4 @@
--- 1. Which departments have the highest and lowest total salary costs?
+-- 1. Departments that have the highest & lowest total salary cost
 SELECT
     d.department_name,
     SUM(e.salary) AS total_salary
@@ -8,7 +8,7 @@ GROUP BY d.department_name
 ORDER BY total_salary DESC;
 
 
--- 2. What is the average salary per department?
+-- 2. Average salary per department
 SELECT
     d.department_name,
     ROUND(AVG(e.salary), 2) AS average_salary
@@ -18,7 +18,7 @@ GROUP BY d.department_name
 ORDER BY average_salary DESC;
 
 
--- 3. What is the average salary per region?
+-- 3. Average salary per region
 SELECT
     r.region_name,
     c.country_name,
@@ -30,7 +30,7 @@ GROUP BY r.region_name, c.country_name
 ORDER BY average_salary DESC;
 
 
--- 4. Which departments have the most employees?
+-- 4. Departments that have the most employees
 SELECT
     d.department_name,
     COUNT(e.id) AS employee_count
@@ -40,7 +40,7 @@ GROUP BY d.department_name
 ORDER BY employee_count DESC;
 
 
--- 5. Which regions spend the most on total salary?
+-- 5. Regions where spend the most on total salary
 SELECT
     r.region_name,
     SUM(e.salary) AS total_salary
@@ -50,7 +50,7 @@ GROUP BY r.region_name
 ORDER BY total_salary DESC;
 
 
--- 6. Which job titles have the highest average salaries?
+-- 6. job titles that have the highest average salaries
 SELECT
     job_title,
     ROUND(AVG(salary), 2) AS avg_salary,
@@ -132,7 +132,7 @@ WITH salary_brackets AS (
         END as salary_bracket,
         COUNT(*) as employee_count
     FROM employees
-    GROUP BY 1
+    GROUP BY salary_brackets
 ),
 total_employees AS (
     SELECT COUNT(*) as total FROM employees
@@ -145,55 +145,8 @@ FROM salary_brackets sb
 CROSS JOIN total_employees te
 ORDER BY sb.employee_count DESC;
 
---13. Employee Salary by Tenure Bracket
-WITH RECURSIVE tenure_brackets AS (
-    SELECT 
-        0 as years_min,
-        2 as years_max,
-        'New Hire (0-2 years)' as tenure_bracket,
-        1 as bracket_level
-    
-    UNION ALL
-    
-    SELECT 
-        years_max,
-        years_max + 3,
-        CASE 
-            WHEN years_max = 2 THEN 'Junior (2-5 years)'
-            WHEN years_max = 5 THEN 'Mid-level (5-8 years)'
-            WHEN years_max = 8 THEN 'Senior (8-11 years)'
-            WHEN years_max = 11 THEN 'Expert (11+ years)'
-        END,
-        bracket_level + 1
-    FROM tenure_brackets
-    WHERE bracket_level < 5
-),
-employee_tenure AS (
-    SELECT 
-        e.name,
-        e.salary,
-        e.job_title,
-        EXTRACT(YEAR FROM AGE(CURRENT_DATE, e.start_date)) as years_of_service,
-        tb.tenure_bracket,
-        tb.bracket_level
-    FROM employees e
-    JOIN tenure_brackets tb ON 
-        EXTRACT(YEAR FROM AGE(CURRENT_DATE, e.start_date)) >= tb.years_min 
-        AND EXTRACT(YEAR FROM AGE(CURRENT_DATE, e.start_date)) < tb.years_max
-)
-SELECT 
-    tenure_bracket,
-    bracket_level,
-    COUNT(*) as employee_count,
-    ROUND(AVG(salary), 0) as avg_salary,
-    ROUND(AVG(years_of_service), 1) as avg_years_service,
-    MIN(years_of_service) as min_tenure,
-    MAX(years_of_service) as max_tenure
-FROM employee_tenure
-GROUP BY tenure_bracket, bracket_level
-ORDER BY bracket_level;
 
---14. Departmental Salary Distribution Statistics
+--13. Departmental Salary Distribution Statistics
 SELECT 
     d.department_name,
     COUNT(*) as employee_count,
@@ -212,7 +165,7 @@ HAVING COUNT(*) >= 5
 ORDER BY coefficient_of_variation DESC;
 
 
---15. Top 10% Earners by Department
+--14. Top 10% Earners by Department
 SELECT 
     e.job_title,
     e.salary,
@@ -227,7 +180,7 @@ WHERE e.salary >= (
     WHERE e2.department_id = e.department_id
 );
 
---16. employees who have higher salaries than avg_salary per department
+--15. employees who have higher salaries than avg_salary per department
 WITH dept_avg_salary AS (
     SELECT department_id, AVG(salary) AS avg_salary
     FROM employees
