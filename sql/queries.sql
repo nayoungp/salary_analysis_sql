@@ -123,7 +123,6 @@ JOIN company_departments d ON e.department_id = d.id;
 --12. Salary bracket distribution
 WITH salary_brackets AS (
     SELECT 
-    
         CASE 
             WHEN salary < 50000 THEN 'Low (< 50K)'
             WHEN salary < 80000 THEN 'Medium (50K-80K)'
@@ -150,8 +149,8 @@ ORDER BY sb.employee_count DESC;
 SELECT 
     d.department_name,
     COUNT(*) as employee_count,
-    ROUND(AVG(e.salary)::numeric, 0) as avg_salary,
-    ROUND(STDDEV(e.salary)::numeric, 0) as salary_stddev,
+    ROUND(AVG(e.salary), 0) as avg_salary,
+    ROUND(STDDEV(e.salary), 0) as salary_stddev,
     MIN(e.salary) as min_salary,
     ROUND(PERCENTILE_CONT(0.25) WITHIN GROUP (ORDER BY e.salary)::numeric, 0) as q1,
     ROUND(PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY e.salary)::numeric, 0) as median,
