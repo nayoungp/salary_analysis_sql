@@ -1,0 +1,5 @@
+"tenure_bracket","bracket_level","employee_count","avg_salary","avg_years_service","min_tenure","max_tenure"
+"New Hire (0-2 years)",1,"64","95853","1.0","1","1"
+"Junior (2-5 years)",2,"316","96383","3.0","2","4"
+"Mid-level (5-8 years)",3,"345","98405","5.9","5","7"
+"Senior (8-11 years)",4,"321","97738","8.9","8","10"
