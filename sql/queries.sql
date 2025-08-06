@@ -108,7 +108,7 @@ GROUP BY job_title
 HAVING COUNT(*) > 2
 ORDER BY salary_stddev DESC;
 
---11. 부서별 급여 순위와 백분위수
+--11. Salary Ranking & Percentile by Department
 SELECT 
     e.job_title,
     e.salary,
@@ -227,7 +227,7 @@ WHERE e.salary >= (
     WHERE e2.department_id = e.department_id
 );
 
---16. 평균보다 더 많이 받는 직원만 필터링
+--16. employees who have higher salaries than avg_salary per department
 WITH dept_avg_salary AS (
     SELECT department_id, AVG(salary) AS avg_salary
     FROM employees
