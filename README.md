@@ -25,6 +25,7 @@ Key analyses include:
 - Calculating total and average salaries by department and region.
 - Categorizing employees into salary brackets.
 - Applying window functions such as RANK() and PERCENT_RANK() to determine salary rankings within each department.
+
 Using statistical measures like standard deviation and percentiles to identify departments with the largest salary disparities.Here's an example:
 ```
 ```sql
