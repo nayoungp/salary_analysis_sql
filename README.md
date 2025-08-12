@@ -89,3 +89,13 @@ These employees are distributed across multiple regions, indicating that locatio
 - Most departments (~20) have around **25 employees** earning above average, suggesting a balanced pay structure.
 - Some departments (e.g., Tools, Outdoors, Sports) have relatively fewer high earners.
 - The pie chart reflects this distribution, with bigger slices for departments with more high earners.
+
+#### Learning
+Writing SQL queries is only the first step.
+The real value comes from interpreting data in a business context and turning it into actionable recommendations — for example:
+
+- Reclassifying departments
+- Reviewing pay equity
+- Adjusting budgets
+
+These analytical skills are directly applicable to budgeting, workforce planning, and compensation strategy.
