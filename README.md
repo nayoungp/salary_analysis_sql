@@ -92,7 +92,7 @@ These employees are distributed across multiple regions, indicating that locatio
 
 #### Learning
 Writing SQL queries is only the first step.
-The real value comes from interpreting data in a business context and turning it into actionable recommendations — for example:
+The real value comes from interpreting data in a business context and turning it into actionable recommendations, for example:
 
 - Reclassifying departments
 - Reviewing pay equity
